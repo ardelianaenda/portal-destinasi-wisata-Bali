@@ -1,0 +1,84 @@
+<%- include('../partials/header', { pageTitle: 'Katalog Wisata | BaliExplore' }) %>
+
+<section class="page-heading">
+    <p class="eyebrow">TEMUKAN DESTINASI FAVORITMU</p>
+    <h1>Katalog Wisata Bali</h1>
+    <p>Jelajahi berbagai destinasi wisata menarik di Pulau Bali.</p>
+</section>
+
+
+<section class="catalog-grid">
+    <% daftarWisata.forEach(wisata => { %>
+        <article class="content-card">
+            <% if (wisata.nama === 'Pantai Kuta') { %>
+                <img class="tour-image"
+                     src="/images/pantai-kuta.jpg"
+                     alt="Pantai Kuta, Bali">
+            <% } else if (wisata.nama === 'Pura Ulun Danu Beratan') { %>
+                <img class="tour-image"
+                     src="/images/pura-ulun-danu-baratan.jpg"
+                     alt="Pura Ulun Danu Beratan, Bali">
+            <% } else if (wisata.nama === 'Garuda Wisnu Kencana') { %>
+                <img class="tour-image"
+                     src="/images/garuda-wisnu-kencana.jpg"
+                     alt="Garuda Wisnu Kencana, Bali">
+            <% } %>
+
+            <span class="category"><%= wisata.kategori %></span>
+            <h2><%= wisata.nama %></h2>
+            <p>Lokasi: <%= wisata.lokasi %></p>
+            <p class="price">
+                Rp <%= wisata.harga.toLocaleString('id-ID') %>
+            </p>
+        </article>
+    <% }) %>
+</section>
+
+
+<section class="form-section">
+    <div class="form-heading">
+        <p class="eyebrow">KONTRIBUSI PENGUNJUNG</p>
+        <h2>Tambah Destinasi Wisata</h2>
+        <p>Masukkan informasi destinasi yang ingin kamu tambahkan.</p>
+    </div>
+
+    <form action="/katalog/tambah" method="POST" class="tour-form">
+        <div class="form-group">
+            <label for="nama">Nama Destinasi</label>
+            <input
+                type="text"
+                id="nama"
+                name="nama"
+                placeholder="Contoh: Pantai Sanur"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="harga">Harga Tiket (Rp)</label>
+            <input
+                type="number"
+                id="harga"
+                name="harga"
+                min="0"
+                placeholder="Contoh: 25000"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="kategori">Kategori Wisata</label>
+            <select id="kategori" name="kategori" required>
+                <option value="">Pilih kategori</option>
+                <option value="Pantai">Pantai</option>
+                <option value="Alam">Alam</option>
+                <option value="Budaya">Budaya</option>
+                <option value="Sejarah">Sejarah</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Tambah Destinasi</button>
+    </form>
+</section>
+
+<%- include('../partials/footer') %>
